@@ -59,7 +59,7 @@ class UserManager {
                 ', array($name)
         );
         if (!$user || !password_verify($pass, $user['password'])) {
-            throw new UserError('Chybně zadané jméno, nebo heslo.');
+            throw new UserError('Chybně zadané heslo.');
         }
         $_SESSION['user'] = $user;
     }

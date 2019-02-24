@@ -14,16 +14,13 @@ class LoginController extends Controller {
             'title' => 'Přihlášení',
             'description' => 'Tato stránka je určena k přihlášení uživatele.',
             'keywords' => 'přihlášení, login, uživatel');
-        if ($_POST)
-        {
-            try
-            {
+        if ($_POST) {
+            try {
                 $userManager->login($_POST['username'], $_POST['password']);
                 $this->addMessage('Byl jste úspěšně přihlášen');
                 $this->redirect('home');
             }
-            catch (UserError $error)
-            {
+            catch (UserError $error) {
                 $this->addMessage($error->getMessage());
             }
         }

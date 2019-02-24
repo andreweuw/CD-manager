@@ -16,6 +16,7 @@ class RegistrationController extends Controller {
                 $userManager->register($_POST['username'], $_POST['email'],$_POST['password'], $_POST['password_again']);
                 $userManager->login($_POST['username'], $_POST['password']);
                 $this->addMessage('Registrace proběhla úspěšně!');
+                echo "propběoho";
                 $this->redirect('home');
             }
             catch (UserError $error) {

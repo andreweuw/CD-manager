@@ -15,6 +15,8 @@ abstract class Controller {
      * Přesměruje do daného pohledu, který musí mít každý kontroler nadefinován
      */
     public function printView() {
+        if (!isset($_SESSION['color']))
+            $_SESSION['color'] = 'red';
         if ($this->view) {
             extract($this->entitize($this->data));
             // Extract the data once again in case of formated HTML text WITH their prefixes (expects '_' prefix of the data piece)
@@ -32,12 +34,12 @@ abstract class Controller {
         exit;
     }
 
-    public function changeColor($color) {
-        if ($color == 'red') {
-            $_SESSION['color'] = 'blue';
+    public function getDifferentColor($sessionColor) {
+        if (!isset($sessionColor) || $sessionColor == 'blue') {
+            return 'red';
         }
-        else if ($color == 'blue') {
-            $_SESSION['color'] = 'red';
+        elseif ($sessionColor == 'red') {
+            return 'blue';
         }
     }
 

@@ -3,6 +3,8 @@
 <p>
     Pro vypsání všech CD, přidávání nebo editaci CD musíte být přihlášen.</br>Pokud přihlášen jste, máte tyto možnosti k využití v navigačním menu v horní části stránky.
 </p>
+<?php if (!isset($_SESSION['user'])) : ?>
 <p>
     Pokud ještě nemáte účet, zaregistrujte se prosím <a href="registration">zde</a>.
 </p>
+<?php endif; ?>

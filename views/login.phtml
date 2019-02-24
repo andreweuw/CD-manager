@@ -1,11 +1,19 @@
 <div  align="center">
 <h2>Přihlášení do administrace</h2>
 <hr>
-<form method="post" name="login" onsubmit="return validateForm()">
+<form method="POST" name="login" onsubmit="return validateForm()">
         <label for="nam">Uživatelské jméno</label>
-        <input id="nam" type="text" class="form-text" name="username" /><br />
+        <input id="nam" type="text" class="form-text" name="username" placeholder="Uživatelské jméno" list="list"/><br />
+        <datalist id="list">
+                <?php $allUsers = (new UserManager())->getAllUsers();
+                        $found = false;
+                        foreach ($allUsers as $user) {
+                                echo "<option value=\"" . $user['username'] . "\">";
+                        }
+                ?>
+        </datalist>
         <label for="pass">Heslo</label>
-        <input id="pass" type="password" class="form-text" name="password" /><br />
+        <input id="pass" type="password" class="form-text" name="password" placeholder="Heslo" /><br />
 <br />
         <input class="btn btn-default" role="button" type="submit" value="Přihlásit" />
 </form>
@@ -13,27 +21,23 @@
 <p align="center">
         Pokud ještě nemáte účet, 
         <a href="registration">
-                zaregistrujte se zde
-        </a>.
+                zaregistrujte se zde.
+        </a>
 </p>
 </div>
-
 <script>
 function validateForm() {
-  var name = document.forms["login"]["username"].value;
-  if (name == "") {
-    alert("Name must be filled out");
-    return false;
-  }
+  var user = document.getElementById('nam');
+  var listOptions = document.querySelectorAll("#list option");
 
-  var allName = <?php UserManager::getAllNames() ?>;
-  var arrayLength = allName.length;
-  var isPresent = false;
-  for (var i = 0; i < arrayLength; i++) {
-    if (name.localeCompare(allName[i]));
-      isPresent = true;
+  var exists = false;
+  for (var i = 0; i < listOptions.length; i++) {
+    if (listOptions[i].value === user.value) {
+            exists = true;
+    }
   }
-  alert("all good?");
-  return isPresent;
+  if (!exists) {
+          alert("Toto uživatelské jméno zatím neexistuje.")
+  }
 }
 </script>

@@ -83,15 +83,6 @@ class CDManager {
     }
 
     /**
-     * Nahraje daný pdf soubor do podadresáře /CDs/
-     */
-    public function uploadPdf($fileName, $fileTmpName) {
-        $uploaddir = $_SERVER['DOCUMENT_ROOT']."/CDs/";
-        $uploadfile = $uploaddir . basename($fileName);
-        move_uploaded_file($fileTmpName, $uploadfile);
-    }
-
-    /**
      * Nastaví artibut 'published' daného článku na hodnotu 'true'
      */
     public function setPublished($id) {

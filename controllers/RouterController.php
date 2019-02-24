@@ -22,7 +22,6 @@ class RouterController extends Controller {
             $this->redirect('home');
         }
         else {
-            $this->addMessage($params[0] . ', ' . $params[1] . ', ' . $params[2]);
             $this->redirect('error');
         }
 
