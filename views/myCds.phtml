@@ -1,0 +1,46 @@
+<h2>Moje sbírka CD</h2>
+<?php $i = 1; ?>
+
+<?php if(empty($cds)) : ?>
+<p>
+        Ještě jsem nepřidal žádné CD.
+</p>
+<?php else : ?>
+<ul class="pagination pagination-lg">
+    <?php
+    for ($j = 1; $j < $numberOfPages + 1; $j++) {
+        echo '<li><strong><h4><a href="cds/printAll/show/' . $j . '">'. $j . '</a></h4></strong></li>  &nbsp;&nbsp;';
+    }
+    ?>
+</ul>
+    <div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr align="center">
+        <th scope="col">Řádek</th>
+        <th scope="col">Název</th>
+        <th scope="col">Délka</th>
+        <th scope="col">Autor</th>
+        <th scope="col">Datum vydání</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($cds as $cd) : ?>
+            <tr align="center">
+                        <th scope="row"><?php echo $i++;?> </th>
+                        <td><?= $cd['nazev'] ?></td>
+                        <td><?= $cd['delka'] ?></td>
+                        <td><?= $cd['autor'] ?></td>
+                        <td><?= $cd['datum_vydani'] ?></td>
+                            <?php
+                            echo"<td><a href='cds/" . $cd['cd_id'] . "/editor' class='btn btn-default' role='button'>Editovat</a></td>";
+                            echo"<td><a href='cds/" . $cd['cd_id'] . "/remove' class='btn btn-default' role='button'>Odstranit</a></td>";
+                            ?>
+            </tr>
+        <?php endforeach ?>
+        </tbody>
+
+    </table>
+
+    </div>
+<?php endif; ?>

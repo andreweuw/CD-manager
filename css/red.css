@@ -1,3 +1,7 @@
 body {
     background: #f8c7bf;
 }
+
+#data tr {
+    display: none;
+}
