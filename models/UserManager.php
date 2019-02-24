@@ -17,7 +17,7 @@ class UserManager {
     /**
      * Pokud spolu hesla souhlasí, přidá nového uživatele do tabulky
      */
-    public function register($name, $pass, $passAgain) {
+    public function register($name, $email, $pass, $passAgain) {
         if ($pass != $passAgain) {
             throw new UserError('Zadaná hesla spolu nesouhlasí.');
         }
@@ -53,7 +53,7 @@ class UserManager {
      */
     public function login($name, $pass) {
         $user = DBWrapper::getRow('
-                SELECT user_id, username, password, status, blocked 
+                SELECT * 
                 FROM users 
                 WHERE username = ?
                 ', array($name)
@@ -102,6 +102,12 @@ class UserManager {
             FROM `users`
             ORDER BY `user_id` DESC
         ');
+    }
+
+    public function getAllNames() {
+        return DBWrapper::query('
+            SELECT username 
+            FROM users');
     }
 
     /**

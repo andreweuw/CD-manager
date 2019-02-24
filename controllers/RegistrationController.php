@@ -13,16 +13,15 @@ class RegistrationController extends Controller {
         if ($_POST) {
             try {
                 $userManager = new UserManager();
-                $userManager->register($_POST['username'], $_POST['password'], $_POST['password_again']);
+                $userManager->register($_POST['username'], $_POST['email'],$_POST['password'], $_POST['password_again']);
                 $userManager->login($_POST['username'], $_POST['password']);
                 $this->addMessage('Registrace proběhla úspěšně!');
-                $this->redirect('administration');
+                $this->redirect('home');
             }
             catch (UserError $error) {
                 $this->addMessage($error->getMessage());
             }
         }
-
         $this->view = 'registration';
     }
 }

@@ -1,7 +1,7 @@
 <div  align="center">
 <h2>Přihlášení do administrace</h2>
 <hr>
-<form method="post">
+<form method="post" name="login" onsubmit="return validateForm()">
         <label for="nam">Uživatelské jméno</label>
         <input id="nam" type="text" class="form-text" name="username" /><br />
         <label for="pass">Heslo</label>
@@ -17,3 +17,23 @@
         </a>.
 </p>
 </div>
+
+<script>
+function validateForm() {
+  var name = document.forms["login"]["username"].value;
+  if (name == "") {
+    alert("Name must be filled out");
+    return false;
+  }
+
+  var allName = <?php UserManager::getAllNames() ?>;
+  var arrayLength = allName.length;
+  var isPresent = false;
+  for (var i = 0; i < arrayLength; i++) {
+    if (name.localeCompare(allName[i]));
+      isPresent = true;
+  }
+  alert("all good?");
+  return isPresent;
+}
+</script>

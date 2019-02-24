@@ -32,6 +32,15 @@ abstract class Controller {
         exit;
     }
 
+    public function changeColor($color) {
+        if ($color == 'red') {
+            $_SESSION['color'] = 'blue';
+        }
+        else if ($color == 'blue') {
+            $_SESSION['color'] = 'red';
+        }
+    }
+
     /**
      * Entitize all the incoming data in the case of cross-site scripting
      */

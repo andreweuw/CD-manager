@@ -1,9 +1,11 @@
 <div align="center">
 <h2>Registrace</h2>
 <hr>
-<form method="post">
-        <label for="username"><strong>Jméno</strong></label><br />
+<form method="post" name="registration" onsubmit="return validateForm()">
+        <label for="username"><strong>Uživatelské jméno</strong></label><br />
         <input type="text" class="form-text" name="username" /><br />
+        <label for="email"><strong>Emailová adresa</strong></label><br />
+        <input type="text" class="form-text" name="email" /><br />
         <label for="password"><strong>Heslo</strong></label><br />
         <input type="password" class="form-text" name="password" /><br />
         <label for="password_again"><strong>Heslo znovu</strong></label><br />
@@ -11,3 +13,13 @@
         <input type="submit" class="btn btn-default" role="button" value="Registrovat" /><br /><br />
 </form>
 </div>
+
+<script>
+function validateForm() {
+  var name = document.forms["registration"]["username"].value;
+  if (name == "") {
+    alert("Name must be filled out");
+    return false;
+  }
+}
+</script>

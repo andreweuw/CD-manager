@@ -15,7 +15,6 @@ class RouterController extends Controller {
         }
         
         $controllerClass = $this->dashToCamel(array_shift($parsedURL)) . 'Controller';
-        
         if (file_exists('controllers/' . $controllerClass . '.php')) {
             $this->controller = new $controllerClass;
         }
@@ -37,7 +36,6 @@ class RouterController extends Controller {
         $userManager = new UserManager();
         $user = $userManager->getUser();
         $this->data['curUsername'] = $user['username'];
-        $this->data['curStatus'] = $user['status'];
         $this->view = 'layout';
     }
 
