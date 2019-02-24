@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="cs-cz">
+    <head>
+        <base href="/localhost" />
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title><?= $title ?></title>
+        <meta name="description" content="<?= $description ?>" />
+        <meta name="keywords" content="<?= $keywords ?>" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.25">
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <!-- core bootstrap cdn -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+
+
+    </head>
+
+        <body class="cowbell">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fill">
+                <a class="navbar-brand" href="home">
+                    <h2>
+                        <img src="../img/chat.png" alt="Chat image" width="64" height="64">Etika eutanázie
+                    </h2>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="container">
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-item nav-link" href="home">Úvod</a>
+                            <a class="nav-item nav-link" href="article">Všechny články</a>
+                            <?php if (($userManager = new UserManager())->getUser()) : ?>
+                                <a class="nav-item nav-link" href="administration">Menu</a>
+                                <a class="nav-item nav-link" href="administration/logout">Odhlásit</a>
+                            <?php else: ?>
+                                <a class="nav-item nav-link" href="login">Přihlásit</a>
+                                <a class="nav-item nav-link" href="registration">Registrovat</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                <?php if (($userManager = new UserManager())->getUser()) : ?>
+                    <span class="navbar-text" align="center">
+                        přihlášený uživatel: 
+                        <strong>
+                            <?= $this->data['curUsername'] ?>
+                        </strong>
+                        (<?= $this->data['curStatus'] ?>)
+                    </span>
+                <?php endif; ?>
+                </div>
+            </nav>
+                <div class="container">
+                <?php foreach ($messages as $message) : ?>
+                    <p class="message">
+                        <?= $message ?>
+                    </p>
+                <?php endforeach ?>
+                <br clear="both" />
+
+                <article>
+                    <?php $this->controller->printView(); ?>
+                </article>
+                
+                </div>
+        <footer class="footer" align="center">
+                <p class="text-muted">
+                    Vytvořil &copy;Ondřej Havlíček, 2019, pro předmět KIV/WEB
+                </p>
+                <p class="text-muted">
+                    <a href="contact">
+                        <img src="../img/mail.png" alt="Mail image" width="32" height="32"> Kontakt
+                    </a>
+                </p>
+            </div>
+        </footer>
+    </body>
+</html>
