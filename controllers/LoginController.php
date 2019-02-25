@@ -7,9 +7,6 @@ class LoginController extends Controller {
 
     public function process($params) {
         $userManager = new UserManager();
-        if ($userManager->getUser()) {
-            $this->redirect('administration');
-        } 
         $this->header = array(
             'title' => 'Přihlášení',
             'description' => 'Tato stránka je určena k přihlášení uživatele.',
@@ -21,7 +18,7 @@ class LoginController extends Controller {
                 $this->redirect('home');
             }
             catch (UserError $error) {
-                $this->addMessage($error->getMessage());
+                $this->addMessage('Bohužel se přihlašování nepovedlo.');
             }
         }
         $this->view = 'login';

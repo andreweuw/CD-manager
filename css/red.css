@@ -5,3 +5,59 @@ body {
 #data tr {
     display: none;
 }
+
+.hrspec {
+    height: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color:rgb(139, 18, 18);
+    border: 0 none;
+}
+.nav-item{
+    font-size:24px !important;
+    margin:5px !important;
+    border-radius: 5px !important;
+    padding:0px 20px 0px 20px !important;
+}
+
+.nav-item:nth-child(odd){
+    background: rgb(193, 243, 159) !important;
+}
+
+.nav-item:nth-child(even){
+    background: rgb(248, 178, 157) !important;
+}
+
+.navbar, .navbar-brand{
+    background: white !important;
+}
+
+.btn-default{
+    background: #DF744A;
+    color: white !important;
+    border: none;
+    box-shadow: 0px 3px 0px 0px #888888;
+    border-radius: 5px !important;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default{
+    background: rgb(193, 243, 159) !important;
+    color: black !important;
+    box-shadow: 0px 3px 0px 0px #888888 !important;
+    border-radius: 5px !important;
+    text-align: center;
+}
+a:hover, a:active, a:focus{
+    text-decoration: none;
+    color: rgb(136, 124, 192) !important;
+}
+
+.form-control {
+    width: 50% !important;
+}
+
+.message {
+	border: 1px solid #9DC2F8;
+	background: #DBE8F8;
+	padding: 3px;
+}

@@ -1,19 +1,19 @@
 <h2>Moje sbírka CD</h2>
-<?php $i = 1; ?>
+<?php $i = 1; // Číslovač ?> 
 
 <?php if(empty($cds)) : ?>
-<p>
-        Ještě jsem nepřidal žádné CD.
-</p>
+    <p>
+            Ještě jsem nepřidal žádné CD.
+    </p>
 <?php else : ?>
 <ul class="pagination pagination-lg">
     <?php
-    for ($j = 1; $j < $numberOfPages + 1; $j++) {
-        echo '<li><strong><h4><a href="cds/printAll/show/' . $j . '">'. $j . '</a></h4></strong></li>  &nbsp;&nbsp;';
-    }
+        for ($j = 1; $j < $numberOfPages + 1; $j++) { // Volání po stránkování
+            echo '<li><strong><h4><a href="cds/printAll/show/' . $j . '">'. $j . '</a></h4></strong></li>  &nbsp;&nbsp;';
+        }
     ?>
 </ul>
-    <div class="table-responsive">
+<div class="table-responsive">
     <table class="table table-striped table-hover">
         <thead>
         <tr align="center">
@@ -25,22 +25,142 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($cds as $cd) : ?>
+            <?php foreach ($cds as $cd) : ?>
+                <tr align="center">
+                            <th scope="row"><?php echo $i++;?> </th>
+                            <td><?= $cd['nazev'] ?></td>
+                            <td><?= $cd['delka'] ?></td>
+                            <td><?= $cd['autor'] ?></td>
+                            <td><?= $cd['datum_vydani'] ?></td>
+                                <?php
+                                echo"<td><a href='cds/" . $cd['cd_id'] . "/editor' class='btn btn-default' role='button'>Editovat</a></td>";
+                                echo"<td><a href='cds/" . $cd['cd_id'] . "/remove' class='btn btn-default' role='button'>Odstranit</a></td>";
+                                ?>
+                </tr>
+            <?php endforeach ?>
+        </tbody>
+    </table>
+</div>
+<hr class="hrspec">
+<!-- Všechna skripta pro hledání v tabulce jsou vesměs stejná. proto se kód značně opakuje. -->
+<div class="container row">
+    <div class="col-3">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Hledat podle názvu..">
+            <script>
+            function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0]; // Jediný rozdíl v tom, v jaké položce vlastně hledáme (0, 1, 2, 3)
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }}}}
+            </script>
+    </div>
+    <div class="col-3">
+        <input type="text" id="delka" onkeyup="myFunction2()" placeholder="Hledat podle délky..">
+            <script>
+            function myFunction2() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("delka");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }}}}
+            </script>
+    </div>
+
+    <div class="col-3">
+        <input type="text" id="autor" onkeyup="myFunction3()" placeholder="Hledat podle autora..">
+            <script>
+            function myFunction3() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("autor");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[2];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }}}}
+            </script>
+    </div>
+
+    <div class="col-3">
+        <input type="text" id="datum" onkeyup="myFunction4()" placeholder="Hledat podle data vydání..">
+            <script>
+            function myFunction4() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("datum");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[3];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }}}}
+            </script>
+    </div>
+</div>
+
+<!-- Celý seznam CD, aby v něm šlo hledat... Nejspíš způsobenou amatérským stránkováním, ale nenašel jsem jinou cestu.
+     Pro "hezčí" stránku by se nejspíš hodilo všechny nepotřebné řádky schovávat (display:none).    ------------------>
+<br>
+<strong>
+    <h4>
+        Výsledky hledání v celém seznamu:
+    </h4>
+</strong>
+
+<table id="myTable"class="table table-striped table-hover">
+    <thead>
+        <tr align="center">
+        <th scope="col">Řádek</th>
+        <th scope="col">Název</th>
+        <th scope="col">Délka</th>
+        <th scope="col">Autor</th>
+        <th scope="col">Datum vydání</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($allCds as $cd) : ?>
             <tr align="center">
                         <th scope="row"><?php echo $i++;?> </th>
                         <td><?= $cd['nazev'] ?></td>
                         <td><?= $cd['delka'] ?></td>
                         <td><?= $cd['autor'] ?></td>
                         <td><?= $cd['datum_vydani'] ?></td>
-                            <?php
-                            echo"<td><a href='cds/" . $cd['cd_id'] . "/editor' class='btn btn-default' role='button'>Editovat</a></td>";
-                            echo"<td><a href='cds/" . $cd['cd_id'] . "/remove' class='btn btn-default' role='button'>Odstranit</a></td>";
-                            ?>
             </tr>
         <?php endforeach ?>
-        </tbody>
-
-    </table>
-
-    </div>
+    </tbody>
+</table>
 <?php endif; ?>

@@ -1,8 +1,10 @@
 <h1>Editor CD</h1>
 <hr>
+
+<div class="container">
 <form enctype="multipart/form-data" method="POST">
         <label for="nazevB">Název CD</label>
-        <input id="nazevB" class="form-text" name="nazev" value="<?= $cd['nazev'] ?>" />
+        <input id="nazevB" class="form-control" name="nazev" value="<?= $cd['nazev'] ?>" />
         <br />
 
         <label for="nazevB">Délka CD</label>
@@ -10,14 +12,14 @@
         <br />
 
         <label for="descr">Autor CD</label>
-        <input id="descr" class="form-text" name="autor" value="<?= $cd['autor'] ?>" />
+        <input id="descr" class="form-control" name="autor" value="<?= $cd['autor'] ?>" />
         <br />
 
         <label for="datum">Datum vydání CD</label>
         <input class="form-control" type="date" name="datum_vydani" value="<?= $cd['datum_vydani'] ?>" id="datum">
 
-
         <br />
         <input type="submit" value="Uložit CD" class="btn btn-default" role="button"/>
         <br /><br />
 </form>
+</div>

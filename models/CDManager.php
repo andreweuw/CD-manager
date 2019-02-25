@@ -6,38 +6,38 @@
 class CDManager {
     
     /**
-     * Přidá článek
+     * Přidá CD
      */
     public function addCD($params = array()) {
         return DBWrapper::add('CDs', $params);
     }
 
     /**
-     * Vrátí článek podle dané url adresy
+     * Vrátí CD podle dané url adresy
      */
     public function getCD($nazev) {
         return DBWrapper::getRow('
             SELECT * 
-            FROM `CDs` 
+            FROM `cds` 
             WHERE `nazev` = ?
             ', array($nazev)
         );
     }
 
     /**
-     * Vrátí článek podle daného id článku
+     * Vrátí CD podle daného id CD
      */
     public function getCDById($id) {
         return DBWrapper::getRow('
             SELECT * 
-            FROM `CDs` 
-            WHERE `CD_id` = ?
+            FROM `cds` 
+            WHERE `cd_id` = ?
             ', array($id)
         );
     }
 
     /**
-     * Vrátí všechny články z tabulky
+     * Vrátí všechny CD z tabulky
      */
     public function getCDs() {
         return DBWrapper::getAllRows('
@@ -48,19 +48,7 @@ class CDManager {
     }
 
     /**
-     * Vrátí všechny ty články, které byly zveřejněny.
-     */
-    public function getAllPublished() {
-        return DBWrapper::getAllRows('
-            SELECT * 
-            FROM `CDs` 
-            WHERE published = 1 
-            ORDER BY `CD_id` DESC
-            ');
-    }
-
-    /**
-     * Vrátí všechny články uživatele s daným id uživatele
+     * Vrátí všechny CD uživatele s daným id uživatele
      */
     public function getMyCDs($id) {
         return DBWrapper::getAllRows('
@@ -73,18 +61,8 @@ class CDManager {
     }
 
     /**
-     * Vrátí největší počet recenzentů ze všech článků
-     */
-    public function getMaxRev() {
-        return DBWrapper::getRow('
-            SELECT MAX(reviewer_count) 
-            as max 
-            FROM CDs;');
-    }
-
-    /**
-     * Uloží daný článek do databáze, přehlednější způsob předání parametrů by byl polem!
-     * Pokud takový článek již existuje, vymaže se a přidá se tento, nový
+     * Uloží daný CD do databáze, přehlednější způsob předání parametrů by byl polem.
+     * Pokud takové CD již existuje, vymaže se a přidá se toto, nové.
      */
     public function saveCD($nazev, $delka, $autor, $datum_vydani) {
         $CD = $this->getCD($nazev);
@@ -113,30 +91,11 @@ class CDManager {
     }
 
     /**
-     * Vymaže článek z databáze na základě jeho id
+     * Vymaže CD z databáze na základě jeho id
      */
     public function deleteCD($id) {
         DBWrapper::query('
             DELETE FROM cds WHERE cd_id = ? 
         ', array($id));
-    }
-
-    /**
-     * Vymaže článek z lokálního serveru, podadresáře /CDs/
-     */
-    public function deletePdf($fileName) {
-        $directory = $_SERVER['DOCUMENT_ROOT']."/CDs/";
-        unlink($directory . $fileName);
-    }
-
-    /**
-     * Vrátí všechny články, které obsahují dané id jako podřetězec atributu 'reviewers_ids'
-     */
-    public function getCDsForReview($id) {
-        return DBWrapper::getAllRows("
-            SELECT * 
-            FROM `cds` 
-            WHERE reviewers_ids REGEXP ?", array($id)
-        );
     }
 }

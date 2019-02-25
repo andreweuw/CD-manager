@@ -29,15 +29,14 @@
 function validateForm() {
   var user = document.getElementById('nam');
   var listOptions = document.querySelectorAll("#list option");
-
   var exists = false;
   for (var i = 0; i < listOptions.length; i++) {
-    if (listOptions[i].value === user.value) {
-            exists = true;
+    if (listOptions[i].value === user.value) { // Iterujeme skrze všechny jména v DB
+       exists = true;
     }
   }
   if (!exists) {
-          alert("Toto uživatelské jméno zatím neexistuje.")
+     alert("Toto uživatelské jméno zatím neexistuje.")
   }
 }
 </script>

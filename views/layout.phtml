@@ -14,74 +14,68 @@
         <!-- core bootstrap cdn -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-        <script src="js/Validation.js"></script>
+
         <link rel="stylesheet" href="css/<?= $_SESSION['color'] ?>">
-
     </head>
+    <body class="cowbell">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fill">
+            <a class="navbar-brand" href="home">
+                <h2>
+                    Správa CD
+                </h2>
+            </a>
 
-        <body class="cowbell">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fill">
-                <a class="navbar-brand" href="home">
-                    <h2>
-                        Správa CD
-                    </h2>
-                </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="container">
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div class="navbar-nav">
-                            <a class="nav-item nav-link" href="home">Titulní stránka</a>
-                            <?php if (($userManager = new UserManager())->getUser()) : ?>
-                                <a class="nav-item nav-link" href="cds/printAll">Moje CD</a>
-                                <a class="nav-item nav-link" href="cds/editor">Přidat nové CD</a>
-                                <a class="nav-item nav-link" href="administration/logout">Odhlásit</a>
-                            <?php else: ?>
-                                <a class="nav-item nav-link" href="login">Přihlásit</a>
-                                <a class="nav-item nav-link" href="registration">Registrovat</a>
-                            <?php endif; ?>
-                        </div>
+            <div class="container">
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link" href="home">Titulní stránka</a>
+                        <?php if (($userManager = new UserManager())->getUser()) : ?>
+                            <a class="nav-item nav-link" href="cds/printAll">Moje CD</a>
+                            <a class="nav-item nav-link" href="cds/editor">Přidat nové CD</a>
+                            <a class="nav-item nav-link" href="administration/logout">Odhlásit</a>
+                        <?php else: ?>
+                            <a class="nav-item nav-link" href="login">Přihlásit</a>
+                            <a class="nav-item nav-link" href="registration">Registrovat</a>
+                        <?php endif; ?>
                     </div>
                 </div>
-                <?php if (($userManager = new UserManager())->getUser()) : ?>
-                    <span class="navbar-text" align="center">
-                        přihlášený uživatel:
-                        <strong>
-                            <?= $this->data['curUsername'] ?>
-                        </strong>
-                    </span>
-                <?php endif; ?>
-                <?php if ($this->controller->view == 'home') : ?>
-                <a class="nav-item nav-link" href="home/changeColor/">Změnit barevné schéma</a>
-                <?php endif; ?>
-                </div>
-            </nav>
-                <div class="container">
-                <?php foreach ($messages as $message) : ?>
-                    <p class="message">
-                        <?= $message ?>
-                    </p>
-                <?php endforeach ?>
-                <br clear="both" />
-
-                <article>
-                    <?php $this->controller->printView(); ?>
-                </article>
-                
-                </div>
-        <footer class="footer" align="center">
-                <p class="text-muted">
-                    Vytvořil &copy;Ondřej Havlíček, 2019, jako demo aplikaci pro firmu AdminIT
-                </p>
-                <p class="text-muted">
-                    <a href="contact">
-                        Kontakt
-                    </a>
-                </p>
             </div>
+            <?php if (($userManager = new UserManager())->getUser()) : ?>
+                <span class="navbar-text" align="center">
+                    přihlášený uživatel:
+                    <strong>
+                        <?= $this->data['curUsername'] ?>
+                    </strong>
+                </span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            <?php endif; ?>
+            <?php if ($this->controller->view == 'home') : ?>
+                <a class="btn-default" href="home/changeColor/">
+                    Změnit barevné schéma
+                </a>
+            <?php endif; ?>
+        </nav>
+        <div class="container">
+            <?php foreach ($messages as $message) : ?>
+                <p class="message">
+                    <?= $message ?>
+                </p>
+            <?php endforeach ?>
+            <br clear="both" />
+
+            <article>
+                <?php $this->controller->printView(); ?>
+            </article>
+                
+        </div>
+        <footer class="footer" align="center">
+            <p class="text-muted">
+                 Vytvořil &copy;Ondřej Havlíček, 2019, jako demo aplikaci pro firmu AdminIT
+            </p>
         </footer>
     </body>
 </html>

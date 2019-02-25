@@ -10,20 +10,16 @@ class RouterController extends Controller {
     public function process($params) {
         $parsedURL = $this->parseURL($params[0]);
 
-        if (empty($parsedURL[0])) {
+        if (empty($parsedURL[0]))
             $this->redirect('home');
-        }
         
         $controllerClass = $this->dashToCamel(array_shift($parsedURL)) . 'Controller';
-        if (file_exists('controllers/' . $controllerClass . '.php')) {
+        if (file_exists('controllers/' . $controllerClass . '.php'))
             $this->controller = new $controllerClass;
-        }
-        else if (file_exists('articles/' . $params[2])) {
+        else if (file_exists('articles/' . $params[2]))
             $this->redirect('home');
-        }
-        else {
+        else
             $this->redirect('error');
-        }
 
         $this->controller->process($parsedURL);
 

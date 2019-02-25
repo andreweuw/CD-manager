@@ -85,11 +85,4 @@ class DBWrapper {
                             array_merge(array_values($values), $params)
         );
     }
-
-    /**
-     * Provede manuální aktualizaci tabulky
-     */
-    public static function update($table) {
-        return self::query("UPDATE * FROM `?`", $table);
-    }
 }

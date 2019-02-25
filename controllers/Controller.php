@@ -34,15 +34,6 @@ abstract class Controller {
         exit;
     }
 
-    public function getDifferentColor($sessionColor) {
-        if (!isset($sessionColor) || $sessionColor == 'blue') {
-            return 'red';
-        }
-        elseif ($sessionColor == 'red') {
-            return 'blue';
-        }
-    }
-
     /**
      * Entitize all the incoming data in the case of cross-site scripting
      */

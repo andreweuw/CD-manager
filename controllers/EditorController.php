@@ -1,25 +1,25 @@
 <?php
 
 /**
- * Editor článků
+ * Editor CD
  */
 class EditorController extends Controller {    
 
     public function process($params) {
         $this->header = array(
-            'title' => 'Editor článků',
-            'keywords' => 'Tato stránka je určena k editaci a vytváření článků.',
-            'description' => 'editace, edit, cd, článek, admin');
+            'title' => 'Editor CD',
+            'keywords' => 'Tato stránka je určena k editaci a vytváření CD.',
+            'description' => 'editace, edit, cd, uzivatel');
 
         $cdManager = new CDManager();
 
-        if (!empty($params[0])) {
+        if (!empty($params[0])) { // Přišlo již stávající CD
             $cd = $cdManager->getCDById($params[0]);
             $cdManager->deleteCD($params[0]);
             $this->data['cd'] = $cd;
             $this->view = ('editor');
         }
-        else {
+        else { // Vytvářříme nové CD
             $cd = array(
                 'nazev' => '',
                 'delka' => '',
@@ -28,8 +28,7 @@ class EditorController extends Controller {
             );
         }
 
-        if ($_POST) {
-
+        if ($_POST) { // Na submit uložíme CD
             $cdManager->saveCD(
                 $_POST['nazev'],
                 $_POST['delka'],
@@ -45,17 +44,9 @@ class EditorController extends Controller {
  
             $this->redirect('cds/printAll');
         }
-        // // Je zadané URL článku k editaci
-        // else if (!empty($params[1])) {
-        //     $bufferedcd = $cdManager->getcd($params[1]);
 
-        //     if ($bufferedcd) {
-        //         $cd = $bufferedcd;
-        //     }
-        // }
-
+        // data['cd'] je bud prázdné nebo je v této proměnné CD k editaci.
         $this->data['cd'] = $cd;
         $this->view = 'editor';
     }
-    
 }

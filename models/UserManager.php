@@ -35,20 +35,6 @@ class UserManager {
     }
 
     /**
-     * Blokuje/odblokuje daného uživatele v závislosti na parametru $val (true/false)
-     */
-    public function block($id, $val) {
-        $controller = new UsersController();
-        if (DBWrapper::query("UPDATE users SET `blocked` = ? WHERE user_id = ?", array($val, $id)) > 0) {
-            $controller->addMessage('Uživatel s id '. $id . ' byl úspěšně blokován');
-        }
-        else {
-            $controller->addMessage('Provádíte zbytečnou operaci, blokování / odblokování nebylo provedeno.');
-        }
-        
-    }
-
-    /**
      * Pokud to jde, přihlásí daného uživatele a vloží ho do $_SESSION['user] proměnné
      */
     public function login($name, $pass) {
@@ -58,7 +44,7 @@ class UserManager {
                 WHERE username = ?
                 ', array($name)
         );
-        if (!$user || !password_verify($pass, $user['password'])) {
+        if (!password_verify($pass, $user['password'])) {
             throw new UserError('Chybně zadané heslo.');
         }
         $_SESSION['user'] = $user;
@@ -108,28 +94,5 @@ class UserManager {
         return DBWrapper::query('
             SELECT username 
             FROM users');
-    }
-
-    /**
-     * Vrátí všechny uživatele, kteří mají ve statusu napsáno, že jsou recenzent
-     */
-    public function getAllReviewers() {
-        return DBWrapper::getAllRows('
-            SELECT * 
-            FROM `users` 
-            WHERE `status` = ? 
-            ORDER BY `user_id` DESC
-        ', array('recenzent'));
-    }
-
-    /**
-     * Vymaže uživatele podle daného id
-     */
-    public function deleteUser($id) {
-        $controller = new UsersController();
-        DBWrapper::query('
-            DELETE FROM users WHERE user_id = ? 
-        ', array($id));
-        $controller->addMessage('Uživatel s id '. $id . ' byl úspěšně odstraněn');
     }
 }
